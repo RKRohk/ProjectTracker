@@ -13,7 +13,7 @@ services:
 
         #Setting environment variables (Change according to your needs)
         environment:
-            - MONGO_URI=mongodb://db:27017/db
+            - MONGODB_URI=mongodb://db:27017/db
             - PORT=3001
             - JWT_SECRET=secretsecret
             - JWT_EXPIRY=30d
