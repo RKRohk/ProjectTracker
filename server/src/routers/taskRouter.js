@@ -5,7 +5,8 @@ const router = require('express').Router()
 
 const createTask = async body => {
         const task = new Task(body)
-        await task.save()
+        const res = await task.save()
+        console.log(res)
 }
 
 /**
@@ -14,7 +15,7 @@ const createTask = async body => {
 router.post('/createTask',async (request,response,next) => {
     logger.info(request.body)
     try{
-        createTask(request.body)
+        await createTask(request.body)
         response.status(201).send()
     }
     catch(err){

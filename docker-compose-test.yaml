@@ -1,0 +1,72 @@
+version: "3.8"
+
+services: 
+    #################################
+    ### Setting up Rohan's Server Container
+    #################################
+    server:
+        build: 
+            context: ./server
+            dockerfile: Dockerfile-test
+        expose: 
+            - 3001
+
+        #Setting environment variables (Change according to your needs)
+        environment:
+            - MONGODB_URI=mongodb://db:27017/test
+            - PORT=3001
+            - JWT_SECRET=secretsecret
+            - JWT_EXPIRY=30d
+            - DEBUG=worker:*
+            - MORGAN=combined
+            - NODE_ENV=test
+
+        ports: 
+            - 3001:3001
+
+        # volumes: 
+        #     - ./server/src:/app/server/src
+        
+        
+        depends_on: 
+            - db
+            
+        command: npm run test
+    #################################
+    ### Setting up Rohan's Client Container
+    #################################
+    # client:
+    #     build:
+    #         context: ./client
+    #         dockerfile: Dockerfile-dev
+    #     environment: 
+    #         - REACT_APP_PORT=3000
+        
+    #     expose: 
+    #       - 3000
+        
+    #     ports: 
+    #       - 3000:3000
+    #     volumes:
+    #       - ./client/src:/app/client/src
+    #       - ./client/public:/app/client/public
+        
+    #     command: npm start
+    #     restart: always
+    #     stdin_open: true
+    #     depends_on: 
+    #         - server
+    #         - db
+
+    #######################
+    ### Setting up mongodb
+    #######################
+    db:
+        image: mongo
+        ports: 
+            - 27017:27017
+        restart: always
+
+
+    
+    

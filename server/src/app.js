@@ -7,6 +7,7 @@ const morgan = require('morgan')
 const options = {useNewUrlParser:true,useUnifiedTopology:true}
 const taskRouter = require('./routers/taskRouter')
 const db = require('./mongo')
+require('express-async-errors')
 
 // if(NODE_ENV === "test"){
 //   connect(`mongodb://db:27017/test`,options)

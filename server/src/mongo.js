@@ -6,12 +6,13 @@ const MONGODB_URI = _MONGODB_URI
 const options = {useNewUrlParser:true,useUnifiedTopology:true}
 
 if(NODE_ENV === "test"){
-  connect(`mongodb://db:27017/test`,options)
+  var conn =  () => { connect(`mongodb://db:27017`,options)}
   logger.info("Connected to test db")
 }
 else{
-  connect(MONGODB_URI,options)
+  var conn =  () => { connect(MONGODB_URI,options)}
 }
+conn()
 const db = connection;
 db.on("error", err => {
   logger.error("There was a problem connecting to mongo: ", err);
