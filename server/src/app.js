@@ -1,11 +1,7 @@
-import { connect, connection } from 'mongoose'
-import { MONGODB_URI as _MONGODB_URI,NODE_ENV } from './utils/config'
-import logger from './utils/logger'
-const MONGODB_URI = _MONGODB_URI
 const express = require('express')
 const morgan = require('morgan')
-const options = {useNewUrlParser:true,useUnifiedTopology:true}
 const taskRouter = require('./routers/taskRouter')
+const userRouter = require('./routers/userRouter')
 const db = require('./mongo')
 require('express-async-errors')
 
@@ -37,6 +33,7 @@ app.get('/test',(req,res) => {
 })
 
 app.use('/api/task',taskRouter)
+app.use('/api/user',userRouter)
 
 
 module.exports = app

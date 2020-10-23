@@ -13,6 +13,15 @@ const taskSchema = new Schema({
         type:Date,
         default:Date.now(),
     },
+    type:{
+        type:String,
+        enum:["Unlabelled","UI","I","U","NN"],
+        default:"Unlabelled"
+    },
+    complete:{
+        type:Boolean,
+        default:false
+    }
 })
 
 const Task =  model('Task',taskSchema)
