@@ -1,8 +1,10 @@
 import { Schema, model } from "mongoose";
+import uniqueValidator from 'mongoose-unique-validator';
 
 const userSchema = Schema({
-    userName:{
+    username:{
         type:String,
+        unique:true,
         required:[true,"User name is required"]
     },
     email:{
@@ -26,6 +28,8 @@ userSchema.set('toJSON', {
     }
   })
 
+userSchema.plugin(uniqueValidator)
+
 const User = model('User',userSchema)
 
-module.exports = User
+export default User

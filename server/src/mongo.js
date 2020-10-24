@@ -1,16 +1,15 @@
 import { connect, connection } from 'mongoose'
-import { MONGODB_URI as _MONGODB_URI, NODE_ENV } from './utils/config'
 import logger from './utils/logger'
-const MONGODB_URI = _MONGODB_URI
+import config from './utils/config'
 
 const options = {useNewUrlParser:true,useUnifiedTopology:true}
 
-if(NODE_ENV === "test"){
+if(config.NODE_ENV === "test"){
   var conn =  () => { connect(`mongodb://db:27017`,options)}
   logger.info("Connected to test db")
 }
 else{
-  var conn =  () => { connect(MONGODB_URI,options)}
+  var conn =  () => { connect(config.MONGODB_URI,options)}
 }
 conn()
 const db = connection;

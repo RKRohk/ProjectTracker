@@ -1,4 +1,4 @@
-const { Schema, model } = require("mongoose");
+const { Schema, model, Types } = require("mongoose");
 
 const taskSchema = new Schema({
     title: {
@@ -13,6 +13,9 @@ const taskSchema = new Schema({
         type:Date,
         default:Date.now(),
     },
+    dueDate:{
+        type:Date
+    },
     type:{
         type:String,
         enum:["Unlabelled","UI","I","U","NN"],
@@ -21,9 +24,10 @@ const taskSchema = new Schema({
     complete:{
         type:Boolean,
         default:false
-    }
+    },
+    subTasks:[{type:Types.ObjectId,ref:"SubTask"}]
 })
 
 const Task =  model('Task',taskSchema)
 
-module.exports = Task
+export default Task

@@ -1,5 +1,5 @@
 const Task = require('../models/task')
-const logger = require('../utils/logger')
+const logger = require('../utils/logger').default
 
 const router = require('express').Router()
 
@@ -24,4 +24,4 @@ router.post('/createTask',async (request,response,next) => {
 })
 
 
-module.exports = router
+export default router

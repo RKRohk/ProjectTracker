@@ -1,8 +1,8 @@
-const logger = require("./logger");
+import logger from "./logger";
 
 
 /**
- * 
+ * Handler to handle unknown endpoints
  * @param {Request} request 
  * @param {Response} response 
  */
@@ -29,7 +29,7 @@ const errorHandler = (error, request, response, next) => {
   next(error);
 };
 
-module.exports = {
+export default {
   unknownEndpoint,
   errorHandler,
 };

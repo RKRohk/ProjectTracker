@@ -1,9 +1,10 @@
 const express = require('express')
 const morgan = require('morgan')
-const taskRouter = require('./routers/taskRouter')
-const userRouter = require('./routers/userRouter')
+import taskRouter from  './routers/taskRouter'
+import userRouter from './routers/userRouter'
+import loginRouter from './routers/loginRouter'
+import middleware from './utils/middleware'
 const db = require('./mongo')
-require('express-async-errors')
 
 // if(NODE_ENV === "test"){
 //   connect(`mongodb://db:27017/test`,options)
@@ -34,6 +35,11 @@ app.get('/test',(req,res) => {
 
 app.use('/api/task',taskRouter)
 app.use('/api/user',userRouter)
+app.use('/api/login',loginRouter)
 
+
+app.use(middleware.errorHandler)
+
+app.use(middleware.unknownEndpoint)
 
 module.exports = app

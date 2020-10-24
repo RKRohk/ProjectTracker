@@ -33,32 +33,37 @@ services:
             
         restart: always
 
+        mem_limit: 200M
+
         command: nodemon -L src/index.js
     #################################
     ### Setting up Rohan's Client Container
     #################################
-    client:
-        build:
-            context: ./client
-            dockerfile: Dockerfile-dev
-        environment: 
-            - REACT_APP_PORT=3000
+    # client:
+    #     build:
+    #         context: ./client
+    #         dockerfile: Dockerfile-dev
+    #     environment: 
+    #         - REACT_APP_PORT=3000
         
-        expose: 
-          - 3000
+    #     expose: 
+    #       - 3000
         
-        ports: 
-          - 3000:3000
-        volumes:
-          - ./client/src:/app/client/src
-          - ./client/public:/app/client/public
+    #     ports: 
+    #       - 3000:3000
+
+    #     mem_limit: 200M
+
+    #     volumes:
+    #       - ./client/src:/app/client/src
+    #       - ./client/public:/app/client/public
         
-        command: npm start
-        restart: always
-        stdin_open: true
-        depends_on: 
-            - server
-            - db
+    #     command: npm start
+    #     restart: always
+    #     stdin_open: true
+    #     depends_on: 
+    #         - server
+    #         - db
 
     #######################
     ### Setting up mongodb

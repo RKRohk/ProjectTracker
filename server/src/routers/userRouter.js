@@ -3,13 +3,17 @@ import { createUser } from '../helpers/userHelper'
 const router = require('express').Router()
 
 router.post('/createUser',async (request,response,next) => {
-    const userName = request.body.userName
+    const username = request.body.username
     const password = request.body.password
     const email = request.body.email
 
-    await createUser(userName,email,password)
+    try {
+        const user = await createUser(username,email,password)
+        response.status(201).json({user})
 
-    response.status(201).json({success:true})
+    } catch (error) {
+        next(error)
+    }
 })
 
-module.exports = router
+export default router

@@ -1,20 +1,24 @@
-const bcrypt = require('bcrypt')
-const User = require('../models/user')
+import bcrypt from 'bcrypt'
+import User from '../models/user'
+
+const saltRounds = 10
+
 /** 
- * @param {String} userName 
+ * @param {String} username 
  * @param {String} email 
  * @param {String} password 
  */
-const createUser = async (userName,email,password) => {
-    const saltRounds = 10
+const createUser = async (username,email,password) => {
     const passwordHash = await bcrypt.hash(password,saltRounds)
 
     const user = new User({
-        userName,
+        username,
         email,
         passwordHash
     })
     await user.save()
+    return user
 }
+
 
 module.exports = {createUser}

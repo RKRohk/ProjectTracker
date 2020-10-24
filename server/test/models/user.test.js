@@ -1,10 +1,16 @@
-const request = require('supertest')
-const app = require('../../src/app')
+import request from 'supertest'
+import app from '../../src/app'
 
 const testUser = {
-    userName:"RKRohk",
+    username:"RKRohk",
     email:"rkakar2000@gmail.com",
     password:"rohan1234"
+}
+
+const testUser1 = {
+    username:"SahilKr24",
+    email:"sahilkumar@gmail.com",
+    password:"ubuntu"
 }
 
 describe('Test user creation and user login', () => {
@@ -16,20 +22,21 @@ describe('Test user creation and user login', () => {
         expect(response.status).toEqual(201)
     })
 
-    it('should be able to log user in',async () => {
+    it('should not create multiple users with same username', async () => {
         const response = await request(app)
-        .post('/api/user/login')
-        .send({testUser})
+        .post('/api/user/createUser')
+        .send(testUser)
 
-        expect(response.status).toEqual(200)
+        expect(response.status).toEqual(400)
+        expect(response.body.error).toBeDefined()
     })
 
-    it('should return bearer token on login',async () => {
+    it('should be able to create another user', async () => {
         const response = await request(app)
-        .post('/api/user/login')
-        .send({testUser})
+        .post('/api/user/createUser')
+        .send(testUser1)
 
-        expect(response.status).toEqual(200)
-        expect(response.header).toHaveProperty('token')
-    } )
+        expect(response.status).toEqual(201)
+    })
+
 })
