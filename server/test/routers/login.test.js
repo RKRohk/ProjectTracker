@@ -12,9 +12,9 @@ describe('Testing login', () => {
     beforeAll(async () => {
         await User.deleteMany({})
 
-        const user = new User(testUser)
+        await request(app).post('/api/user/createUser').send(testUser)
 
-        await user.save()
+        console.log("User saved")
     })
 
     it('Should let user login',async () => {
@@ -31,7 +31,7 @@ describe('Testing login', () => {
         .post('/api/login')
         .send({...testUser,password:"meme123"})
 
-        expect(response.status).toEqual(400)
+        expect(response.status).toEqual(401)
         expect(response.error).toBeDefined()
     })
 

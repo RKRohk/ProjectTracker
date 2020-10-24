@@ -1,5 +1,6 @@
 import request from 'supertest'
 import app from '../../src/app'
+import User from '../../src/models/user'
 
 const testUser = {
     username:"RKRohk",
@@ -14,6 +15,10 @@ const testUser1 = {
 }
 
 describe('Test user creation and user login', () => {
+    beforeAll(async () => {
+        await User.deleteMany({})
+    })
+
     it('should create user',async () => {
         const response = await request(app)
         .post('/api/user/createUser')

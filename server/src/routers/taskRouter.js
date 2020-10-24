@@ -1,4 +1,4 @@
-const Task = require('../models/task')
+import Task from '../models/task'
 const logger = require('../utils/logger').default
 
 const router = require('express').Router()

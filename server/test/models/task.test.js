@@ -1,7 +1,7 @@
-const request = require('supertest')
-const app = require('../../src/app')
+import request from 'supertest'
+import app from '../../src/app'
 const mongoose = require('mongoose')
-const Task = require('../../src/models/task')
+import Task from '../../src/models/task'
 // beforeAll( async () => {
 //     const url = `mongodb://db:27017/test`
 //     await mongoose.connect(url, { useNewUrlParser: true })
