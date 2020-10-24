@@ -16,6 +16,6 @@ const findUser = async email => {
  * @param {User} user 
  * @param {string} password 
  */
-const passwordCorrect = async (user,password) =>  !user ? false : await bcrypt.compare(user.passwordHash,password)
+const passwordCorrect = async (user,password) =>  await bcrypt.compare(password,user.passwordHash)
 
 module.exports = {findUser,passwordCorrect}
