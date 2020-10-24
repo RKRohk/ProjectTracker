@@ -20,6 +20,7 @@ services:
             - DEBUG=worker:*
             - MORGAN=combined
             - NODE_ENV=test
+            - CI=true
 
         ports: 
             - 3001:3001
@@ -66,6 +67,10 @@ services:
         ports: 
             - 27017:27017
         restart: always
+
+
+
+
 
 
     

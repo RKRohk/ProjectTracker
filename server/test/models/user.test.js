@@ -1,6 +1,7 @@
 import request from 'supertest'
 import app from '../../src/app'
 import User from '../../src/models/user'
+import mongoose from 'mongoose'
 
 const testUser = {
     username:"RKRohk",
@@ -42,6 +43,10 @@ describe('Test user creation and user login', () => {
         .send(testUser1)
 
         expect(response.status).toEqual(201)
+    })
+
+    afterAll(async () => {
+        await mongoose.disconnect()
     })
 
 })

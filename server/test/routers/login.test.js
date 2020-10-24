@@ -1,6 +1,7 @@
 const request = require('supertest')
 const app = require('../../src/app')
 import User from '../../src/models/user'
+import mongoose from 'mongoose'
 const testUser = {
     username:"RKRohk",
     email:"rkakar2000@gmail.com",
@@ -35,7 +36,9 @@ describe('Testing login', () => {
         expect(response.error).toBeDefined()
     })
 
-
+    afterAll(async () => {
+        await mongoose.disconnect()
+    })
 })
 
 
