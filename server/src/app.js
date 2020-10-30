@@ -4,6 +4,7 @@ import taskRouter from  './routers/taskRouter'
 import userRouter from './routers/userRouter'
 import loginRouter from './routers/loginRouter'
 import middleware from './utils/middleware'
+import projectRouter from './routers/projectRouter'
 const db = require('./mongo')
 
 // if(NODE_ENV === "test"){
@@ -33,9 +34,11 @@ app.get('/test',(req,res) => {
     res.json({data:"Hello"})
 })
 
+app.use(middleware.authMiddleWare)
 app.use('/api/task',taskRouter)
 app.use('/api/user',userRouter)
 app.use('/api/login',loginRouter)
+app.use('/api/project',projectRouter)
 
 
 app.use(middleware.errorHandler)

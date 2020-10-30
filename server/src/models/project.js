@@ -9,7 +9,11 @@ const projectSchema = new Schema({
         type:String,
         required:[true,"Project description is required"]
     },
-    tasks:[{type: Schema.Types.ObjectId, ref:'Task'}]
+    tasks:[{type: Schema.Types.ObjectId, ref:'Task'}],
+    createdBy:{
+        type:Schema.Types.ObjectId,
+        required:true
+    }
 })
 
 const Project = model('Project',projectSchema)

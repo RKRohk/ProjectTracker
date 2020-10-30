@@ -12,7 +12,7 @@ const testUser = {
 describe('Testing login', () => {
     beforeAll(async () => {
         await User.deleteMany({})
-
+        
         await request(app).post('/api/user/createUser').send(testUser)
 
         console.log("User saved")

@@ -1,4 +1,4 @@
-import Task from '../models/task'
+const Task = require('../models/task').default
 const logger = require('../utils/logger').default
 
 const router = require('express').Router()
@@ -13,7 +13,11 @@ const createTask = async body => {
  * Creates a task
  */
 router.post('/createTask',async (request,response,next) => {
-    logger.info(request.body)
+    logger.info("HELLO")
+    if(!request.token){
+        response.status(401).json({error:"User not logged in"})
+        return
+    }
     try{
         await createTask(request.body)
         response.status(201).send()

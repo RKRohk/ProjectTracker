@@ -1,5 +1,6 @@
 import bcrypt from 'bcrypt'
 import User from '../models/user'
+const jwt = require('jsonwebtoken')
 
 const saltRounds = 10
 
@@ -20,5 +21,6 @@ const createUser = async (username,email,password) => {
     return user
 }
 
+const decodeUser = token => jwt.verify(token,"ROHAN")
 
-module.exports = {createUser}
+module.exports = {createUser,decodeUser}
