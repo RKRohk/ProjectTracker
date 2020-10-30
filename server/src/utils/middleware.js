@@ -26,7 +26,7 @@ const errorHandler = (error, request, response, next) => {
   } else if (error.name === "ValidationError") {
     return response.status(400).json({ error: error.message });
   }
-  else if (error.name === "AuthError"){
+  else if (error.message === "AuthError"){
     return response.status(401).json({error:"Authorization Error"})
   }
 

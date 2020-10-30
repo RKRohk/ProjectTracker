@@ -45,7 +45,7 @@ describe('Testing creation of task', () => {
     })
 
     it('created task should be found',async () => {
-        const task = await Task.findOne({title:"Start making the project"}).exec()
+        const task = await Task.findOne({title:"Start making the project"})
         expect(task.title).toEqual("Start making the project")
     })
 

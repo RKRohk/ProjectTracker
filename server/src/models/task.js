@@ -25,7 +25,12 @@ const taskSchema = new Schema({
         type:Boolean,
         default:false
     },
-    subTasks:[{type:Types.ObjectId,ref:"SubTask"}]
+    subTasks:[{type:Types.ObjectId,ref:"SubTask"}],
+    project:{
+        type:Types.ObjectId,
+        ref:"Project",
+        required:true
+    }
 })
 
 const Task =  model('Task',taskSchema)
