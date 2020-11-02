@@ -27,9 +27,9 @@ describe('Test operations before login', () => {
         expect(response.status).toEqual(401)
     })
 
-    afterAll(async () => {
-        mongoose.disconnect()
-    })
+    // afterAll(async () => {
+    //     mongoose.disconnect()
+    // })
 })
 
 describe('Test operations after login', () => {
@@ -40,24 +40,24 @@ describe('Test operations after login', () => {
         await User.deleteMany({})
         await request(app).post('/api/user/createUser').send(testUser)
         const response = await request(app).post('/api/login').send(testUser)
-        token = response.token
+        token = response.body.token
     })
 
     it("Initially number of projects is zero",async () => {
         const response = await request(app).get('/api/project').set('Authorization',`Bearer ${token}`)
         expect(response.status).toBe(200)
-        expect(response.projects).toHaveLength(0)
+        expect(response.body.projects).toHaveLength(0)
     })
 
     it("Can create a project",async () => {
-        const response = await request(app).post('/api/project').send(sampleProject).set('Authorization',`Bearer ${token}`)
+        const response = await request(app).post('/api/project/create').send(sampleProject).set('Authorization',`Bearer ${token}`)
         expect(response.status).toEqual(201)
     })
 
     it("Number of projects is 1", async () => {
         const response = await request(app).get('/api/project').set("Authorization",`Bearer ${token}`)
         expect(response.status).toBe(200)
-        expect(response.projects).toHaveLength(1)
+        expect(response.body.projects).toHaveLength(1)
     })
 
     afterAll(async () => {

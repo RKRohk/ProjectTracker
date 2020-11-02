@@ -3,10 +3,7 @@ import app from '../../src/app'
 const mongoose = require('mongoose')
 import Task from '../../src/models/task'
 import User from '../../src/models/user'
-// beforeAll( async () => {
-//     const url = `mongodb://db:27017/test`
-//     await mongoose.connect(url, { useNewUrlParser: true })
-// })
+
 const testUser = {
     username:"RKRohk",
     email:"rkakar2000@gmail.com",
@@ -15,7 +12,7 @@ const testUser = {
 
 describe('Testing creation of task when not logged in',() => {
     it('should not create a task',async() => {
-        const res = await (await request(app).post('/api/task/createTask')).send({
+        const res = await request(app).post('/api/task/createTask').send({
             title:"Start making the project",
             createdAt:Date.now()
         })
