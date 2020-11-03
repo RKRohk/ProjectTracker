@@ -32,9 +32,9 @@ describe('Testing creation of task when not logged in',() => {
         expect(res.status).toEqual(401)
     })
 
-    afterAll(async () => {
-        await mongoose.disconnect()
-    })
+    // afterAll(async () => {
+    //     await mongoose.disconnect()
+    // })
 })
 
 describe('Testing creation of task', () => {
@@ -46,13 +46,12 @@ describe('Testing creation of task', () => {
         const response = await request(app).post('/api/user/createUser').send(testUser)
         const login = await request(app).post('/api/login').send(testUser)
         token = login.token
-        const user = await User.find(testUser)
+        const user = await User.findOne({username:testUser.username})
         for (const project of sampleProjects) {
-            const proj = new Project({...project,createdBy:user.id})
+            const proj = new Project({...project,createdBy:user._id})
             const savedProject = await proj.save()
             projects.push(savedProject)
         }
-        console.log("Projects",projects)
     })
 
 

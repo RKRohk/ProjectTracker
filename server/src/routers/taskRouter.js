@@ -6,7 +6,7 @@ const router = require('express').Router()
 const createTask = async ({project,title}) => {
         const task = new Task({project,title})
         const res = await task.save()
-        console.log(res)
+        logger.info("New User",res)
         return res
 }
 
