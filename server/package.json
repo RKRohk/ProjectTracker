@@ -30,7 +30,8 @@
     ]
   },
   "scripts": {
-    "test": "NODE_ENV=test jest --testTimeout=10000 --detectOpenHandles"
+    "test": "NODE_ENV=test jest --testTimeout=10000 --detectOpenHandles",
+    "start": "NODE_ENV=production node src/index.js"
   },
   "author": "",
   "license": "ISC"
