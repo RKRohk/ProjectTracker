@@ -1,9 +1,21 @@
 import React from "react";
-import "./App.css";
-import Navbar from "./Components/Navbar";
+import Navbar from "./components/Navbar/Navbar";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import LandingPageBody from "./components/LandingPage/LandingPageBody";
 
 const App: React.FC = () => {
-    return <Navbar />;
+    return (
+        <>
+            <BrowserRouter>
+                <Navbar />
+                <Switch>
+                    <Route path="/">
+                        <LandingPageBody />
+                    </Route>
+                </Switch>
+            </BrowserRouter>
+        </>
+    );
 };
 
 export default App;

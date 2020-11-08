@@ -1,0 +1,14 @@
+FROM node:alpine3.12
+
+RUN mkdir -p /app/client
+WORKDIR /app/client
+
+
+COPY yarn.lock .
+COPY package*.json ./
+
+RUN yarn install
+
+COPY . .
+
+CMD ["yarn","start"]
