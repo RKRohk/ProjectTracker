@@ -10,7 +10,9 @@ const App: React.FC = () => {
                 <Navbar />
                 <Switch>
                     <Route path="/">
-                        <LandingPageBody />
+                        <div className="App">
+                            <LandingPageBody />
+                        </div>
                     </Route>
                 </Switch>
             </BrowserRouter>

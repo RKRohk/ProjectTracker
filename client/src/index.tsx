@@ -4,7 +4,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { CSSReset, theme } from "@chakra-ui/core";
 import { ThemeProvider } from "emotion-theming";
-
+import "./index.css";
 ReactDOM.render(
     <React.StrictMode>
         <ThemeProvider theme={theme}>
