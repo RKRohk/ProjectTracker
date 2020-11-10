@@ -23,9 +23,16 @@ const Navbar: React.FC = () => {
                     mt={3}
                     fontWeight="bold"
                     content="Features"
+                    to="/features"
                 />
 
-                <HeaderItem mr={6} mt={3} fontWeight="bold" content="FAQ" />
+                <HeaderItem
+                    mr={6}
+                    mt={3}
+                    fontWeight="bold"
+                    content="FAQ"
+                    to="/faq"
+                />
                 <FilledButton text="Login" />
             </Flex>
         </Flex>
