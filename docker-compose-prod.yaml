@@ -1,0 +1,41 @@
+version: "3"
+
+services:
+  #################################
+  ### Setting up Rohan's Server Container
+  #################################
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    expose:
+      - 3001
+
+    #Setting environment variables (Change according to your needs)
+    environment:
+      - MONGODB_URI=mongodb://db:27017/db
+      - PORT=3001
+      - JWT_SECRET=secretsecret
+      - JWT_EXPIRY=30d
+      - DEBUG=worker:*
+      - MORGAN=combined
+      - NODE_ENV=development
+
+    ports:
+      - 3001:3001
+
+    depends_on:
+      - db
+
+    restart: always
+
+    mem_limit: 200M
+
+  #######################
+  ### Setting up mongodb
+  #######################
+  db:
+    image: mongo
+    ports:
+      - 27017:27017
+    restart: always

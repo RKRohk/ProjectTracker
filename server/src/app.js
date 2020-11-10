@@ -40,11 +40,11 @@ app.use("/api/user", userRouter);
 app.use("/api/login", loginRouter);
 app.use("/api/project", projectRouter);
 
-app.use(express.static(path.join(__dirname, "build")));
+app.use(express.static(path.join(__dirname, "../", "build")));
 
 if (config.NODE_ENV === "production") {
   app.get("/*", (request, response) => {
-    response.sendFile(path.join(__dirname, "build", "index.html"));
+    response.sendFile(path.join(__dirname, "../", "build", "index.html"));
   });
 }
 app.use(middleware.errorHandler);
