@@ -1,80 +1,73 @@
 version: "3.8"
 
-services: 
-    #################################
-    ### Setting up Rohan's Server Container
-    #################################
-    server:
-        build: 
-            context: ./server
-            dockerfile: Dockerfile-dev
-        expose: 
-            - 3001
+services:
+  #################################
+  ### Setting up Rohan's Server Container
+  #################################
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile-dev
+    expose:
+      - 3001
 
-        #Setting environment variables (Change according to your needs)
-        environment:
-            - MONGODB_URI=mongodb://db:27017/db
-            - PORT=3001
-            - JWT_SECRET=secretsecret
-            - JWT_EXPIRY=30d
-            - DEBUG=worker:*
-            - MORGAN=combined
-            - NODE_ENV=development
+    #Setting environment variables (Change according to your needs)
+    environment:
+      - MONGODB_URI=mongodb://db:27017/db
+      - PORT=3001
+      - JWT_SECRET=secretsecret
+      - JWT_EXPIRY=30d
+      - DEBUG=worker:*
+      - MORGAN=combined
+      - NODE_ENV=development
 
-        ports: 
-            - 3001:3001
+    ports:
+      - 3001:3001
 
-        volumes: 
-            - ./server/src:/app/server/src
-            - ./server/test:/app/server/test
-        
-        
-        depends_on: 
-            - db
-            
-        restart: always
+    volumes:
+      - ./server/src:/app/server/src
+      - ./server/test:/app/server/test
 
-        mem_limit: 200M
+    depends_on:
+      - db
 
-        command: /bin/sh -c "while sleep 1000; do :; done"
-    #################################
-    ### Setting up Rohan's Client Container
-    #################################
-    # client:
-    #     build:
-    #         context: ./client
-    #         dockerfile: Dockerfile-dev
-    #     environment: 
-    #         - REACT_APP_PORT=3000
-        
-    #     expose: 
-    #       - 3000
-        
-    #     ports: 
-    #       - 3000:3000
+    restart: always
 
-    #     mem_limit: 200M
+    mem_limit: 200M
 
-    #     volumes:
-    #       - ./client/src:/app/client/src
-    #       - ./client/public:/app/client/public
-        
-    #     command: npm start
-    #     restart: always
-    #     stdin_open: true
-    #     depends_on: 
-    #         - server
-    #         - db
+    command: /bin/sh -c "while sleep 1000; do :; done"
+  ################################
+  ## Setting up Rohan's Client Container
+  ################################
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile-dev
+    environment:
+      - REACT_APP_PORT=3000
 
-    #######################
-    ### Setting up mongodb
-    #######################
-    db:
-        image: mongo
-        ports: 
-            - 27017:27017
-        restart: always
+    expose:
+      - 3000
 
+    ports:
+      - 3000:3000
 
-    
-    
+    mem_limit: 200M
+
+    volumes:
+      - ./client/:/app/client/
+
+    command: yarn start
+    restart: always
+    depends_on:
+      - server
+      - db
+
+  #######################
+  ### Setting up mongodb
+  #######################
+  db:
+    image: mongo
+    ports:
+      - 27017:27017
+    restart: always
