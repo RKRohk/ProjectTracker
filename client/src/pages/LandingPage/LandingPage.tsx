@@ -1,10 +1,20 @@
 import { Box, Flex, Heading, Image } from "@chakra-ui/core";
 import React from "react";
+import { useHistory } from "react-router";
 import FilledButton from "../../components/FilledButton/FilledButton";
 import HeaderBox from "../../components/HeaderBox/HeaderBox";
 import backgroundImage from "../../media/gummy-programming.svg";
 
 const LandingPage: React.FC = () => {
+    const history = useHistory();
+
+    /**
+     * Naviigates to Login Page
+     * @param e React.MouseEvent<HTMLButtonELement>
+     */
+    const pushToLogin = (e: React.MouseEvent<HTMLButtonElement>) => {
+        history.push("/login");
+    };
     return (
         <div className="LandingPage">
             <Flex
@@ -27,7 +37,7 @@ const LandingPage: React.FC = () => {
                         content="Features"
                     />
                     <HeaderBox mr={6} mt={3} fontWeight="bold" content="FAQ" />
-                    <FilledButton text="Login" />
+                    <FilledButton text="Login" onClick={pushToLogin} />
                 </Flex>
             </Flex>
             <Flex direction="row" p={8}>
