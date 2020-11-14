@@ -21,21 +21,29 @@ const Login: React.FC = () => {
                     props.setSubmitting(true);
                     try {
                         if (createAccount) {
-                            const user = await authService.register(
+                            const response = await authService.register(
                                 values.username,
                                 values.email,
                                 values.password
                             );
                         } else {
-                            const user = await authService.login(
+                            const response = await authService.login(
                                 values.email,
                                 values.password
                             );
-                            console.log(user);
+                            const { username, email } = response.data;
+
+                            localStorage.setItem(
+                                "user",
+                                JSON.stringify({ username, email })
+                            );
+                            localStorage.setItem("token", response.data.token);
+                            console.log(response);
                         }
                     } catch (err) {
                         //Error Handler
                         const error: AxiosError = err;
+                        console.log(error.response?.data);
                         props.setFieldError("error", error.response?.data);
                     }
                 }}
