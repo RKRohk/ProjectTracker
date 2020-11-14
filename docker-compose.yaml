@@ -33,8 +33,6 @@ services:
 
     restart: always
 
-    mem_limit: 200M
-
     command: /bin/sh -c "while sleep 1000; do :; done"
   ################################
   ## Setting up Rohan's Client Container
@@ -55,7 +53,7 @@ services:
     mem_limit: 200M
 
     volumes:
-      - ./client/:/app/client/
+      - ./client/src:/app/client/src
 
     command: yarn start
     restart: always

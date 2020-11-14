@@ -1,17 +1,43 @@
-import React from "react";
+import React, { useState } from "react";
 import { Formik } from "formik";
-import { Button, Flex, FormControl, FormLabel, Input } from "@chakra-ui/core";
+import {
+    Button,
+    Flex,
+    FormControl,
+    FormLabel,
+    Input,
+    Text,
+} from "@chakra-ui/core";
+import authService from "../../services/authService";
+import { AxiosError } from "axios";
+
 const Login: React.FC = () => {
+    const [createAccount, setCreateAccount] = useState(false);
     return (
         <Flex mx="auto" my={40} justify="center">
             <Formik
-                initialValues={{ email: "", password: "" }}
-                onSubmit={(values, props) => {
+                initialValues={{ email: "", password: "", username: "" }}
+                onSubmit={async (values, props) => {
                     props.setSubmitting(true);
-                    setTimeout(() => {
-                        console.log(values);
-                        props.setSubmitting(false);
-                    }, 5000);
+                    try {
+                        if (createAccount) {
+                            const user = await authService.register(
+                                values.username,
+                                values.email,
+                                values.password
+                            );
+                        } else {
+                            const user = await authService.login(
+                                values.email,
+                                values.password
+                            );
+                            console.log(user);
+                        }
+                    } catch (err) {
+                        //Error Handler
+                        const error: AxiosError = err;
+                        props.setFieldError("error", error.response?.data);
+                    }
                 }}
             >
                 {(props) => (
@@ -40,6 +66,31 @@ const Login: React.FC = () => {
                                 id="password"
                             ></Input>
                         </FormControl>
+                        <FormControl
+                            mx="auto"
+                            width={["90vw", "90vw", "30vw", "30vw"]}
+                            display={createAccount ? "block" : "none"}
+                        >
+                            <FormLabel htmlFor="username">
+                                Please Enter Username
+                            </FormLabel>
+                            <Input
+                                value={props.values.username}
+                                onChange={props.handleChange}
+                                type="text"
+                                id="username"
+                            ></Input>
+                        </FormControl>
+                        <Text
+                            my={6}
+                            as="button"
+                            onClick={(e) => {
+                                e.preventDefault();
+                                setCreateAccount(!createAccount);
+                            }}
+                        >
+                            Dont Have an account?
+                        </Text>
                         <Flex justify="center" my={6}>
                             <Button
                                 type="submit"
