@@ -3,6 +3,7 @@ import { ThemeProvider } from "emotion-theming";
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Login from "./components/Login/Login";
+import Navbar from "./components/Navbar/Navbar";
 import LandingPage from "./pages/LandingPage/LandingPage";
 
 const App: React.FC = () => {
@@ -13,6 +14,7 @@ const App: React.FC = () => {
                 <LandingPage />
             </div> */}
             <Router>
+                <Navbar />
                 <Switch>
                     <Route path="/login">
                         <Login />
